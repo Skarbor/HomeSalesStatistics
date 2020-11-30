@@ -9,28 +9,41 @@ namespace HomeSalesStatistics.OffersSearcher.olx
 {
     public class OlxParser
     {
-        private readonly string url = "https://www.olx.pl/nieruchomosci/mieszkania/sprzedaz/lublin/?view=list";
         private readonly IWebPageContentGetter _webPageContentGetter = new WebPageContentGetter();
-        public string GetOffersLinks()
-        {
-            var html = _webPageContentGetter.GetWebPageContent(url);
+        private readonly OlxOfferPriceParser _priceParser = new OlxOfferPriceParser();
+        private readonly OlxOfferSurfaceParser _surfaceParser = new OlxOfferSurfaceParser();
+        private readonly OlxOfferPublicationDateParser _publicationDateParser = new OlxOfferPublicationDateParser();
 
+        private const string OlxUrl = "https://www.olx.pl/nieruchomosci/mieszkania/sprzedaz/lublin/?view=list";
+
+        public IEnumerable<HouseSaleOffer> GetOffers()
+        {
+            var html = _webPageContentGetter.GetWebPageContent(OlxUrl);
             var cleanedHtmlContent = html.Replace("\n", "").Replace("\r", "").Replace("\t", "").Replace(" ", "");
 
             var otodomOffers = new List<string>(GetOffersWithOtodomInLink(cleanedHtmlContent));
             var olxOffers = new List<string>(GetOffersWithOlxInLink(cleanedHtmlContent));
 
-            OlxOfferPriceParser priceParser = new OlxOfferPriceParser();
-            OlxOfferSurfaceParser surfaceParser = new OlxOfferSurfaceParser();
-            OlxOfferPublicationDateParser publicationDateParser = new OlxOfferPublicationDateParser();
+            var houseSaleOffers = new List<HouseSaleOffer>();
 
-            var linkToOffer = olxOffers.First();
+            foreach (var olxOffer in olxOffers)
+            {
+                var price = _priceParser.GetOfferPrice(olxOffer);
+                var surface = _surfaceParser.GetSurface(olxOffer);
+                var publicationDate = _publicationDateParser.GetOfferPublicationDate(olxOffer);
 
-            var price = priceParser.GetOfferPrice(linkToOffer);
-            var surface = surfaceParser.GetSurface(linkToOffer);
-            var publicationDate = publicationDateParser.GetOfferPublicationDate(linkToOffer);
+                houseSaleOffers.Add(new HouseSaleOffer
+                {
+                    Price = price,
+                    Surface = surface,
+                    url = olxOffer,
+                    PublicationDate = publicationDate
+                });
+            }
 
-            return null;
+            return houseSaleOffers;
+
+            //todo parse also otodom offers
         }
 
         private IEnumerable<string> GetOffersWithOtodomInLink(string htmlContent)

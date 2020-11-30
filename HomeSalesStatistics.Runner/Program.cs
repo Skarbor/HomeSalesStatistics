@@ -11,7 +11,6 @@ namespace HomeSalesStatistics.Runner
             IWebPageContentGetter webPageContentGetter = new WebPageContentGetter();
 
             OlxParser olx = new OlxParser();
-            olx.GetOffersLinks();
 
             //var content = webPageContentGetter.GetWebPageContent(
             //    "https://www.olx.pl/nieruchomosci/mieszkania/sprzedaz/lublin/?view=list");

@@ -7,5 +7,6 @@ namespace HomeSalesStatistics.Model
         public string url { get; set; }
         public decimal Surface { get; set; }
         public decimal Price { get; set; }
+        public DateTime PublicationDate { get; set; }
     }
 }
