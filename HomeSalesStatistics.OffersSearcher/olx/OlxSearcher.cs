@@ -7,12 +7,17 @@ namespace HomeSalesStatistics.OffersSearcher.olx
 {
     internal class OlxSearcher : ISearcher
     {
-        private readonly IWebPageContentGetter _webPageContentGetter = new WebPageContentGetter();
+        private readonly IWebPageContentGetter _webPageContentGetter;
         private readonly OlxOfferPriceParser _priceParser = new OlxOfferPriceParser();
         private readonly OlxOfferSurfaceParser _surfaceParser = new OlxOfferSurfaceParser();
         private readonly OlxOfferPublicationDateParser _publicationDateParser = new OlxOfferPublicationDateParser();
 
         private const string OlxUrl = "https://www.olx.pl/nieruchomosci/mieszkania/sprzedaz/lublin/?view=list";
+
+        public OlxSearcher(IWebPageContentGetter webPageContentGetter)
+        {
+            _webPageContentGetter = webPageContentGetter;
+        }
 
         public IEnumerable<HouseSaleOffer> SearchForOffers()
         {
