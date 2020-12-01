@@ -1,12 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+﻿using System.Linq;
 using System.Text.RegularExpressions;
 
 namespace HomeSalesStatistics.OffersSearcher.olx
 {
-    public class OlxOfferSurfaceParser
+    internal class OlxOfferSurfaceParser
     {
         private readonly IWebPageContentGetter _webPageContentGetter = new WebPageContentGetter();
 

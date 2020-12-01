@@ -1,13 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.Text.RegularExpressions;
 using HomeSalesStatistics.Model;
 
 namespace HomeSalesStatistics.OffersSearcher.olx
 {
-    public class OlxParser
+    internal class OlxSearcher : ISearcher
     {
         private readonly IWebPageContentGetter _webPageContentGetter = new WebPageContentGetter();
         private readonly OlxOfferPriceParser _priceParser = new OlxOfferPriceParser();
@@ -16,7 +14,7 @@ namespace HomeSalesStatistics.OffersSearcher.olx
 
         private const string OlxUrl = "https://www.olx.pl/nieruchomosci/mieszkania/sprzedaz/lublin/?view=list";
 
-        public IEnumerable<HouseSaleOffer> GetOffers()
+        public IEnumerable<HouseSaleOffer> SearchForOffers()
         {
             var html = _webPageContentGetter.GetWebPageContent(OlxUrl);
             var cleanedHtmlContent = html.Replace("\n", "").Replace("\r", "").Replace("\t", "").Replace(" ", "");

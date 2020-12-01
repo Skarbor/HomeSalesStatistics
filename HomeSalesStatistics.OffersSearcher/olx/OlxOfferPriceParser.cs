@@ -3,10 +3,10 @@ using System.Text.RegularExpressions;
 
 namespace HomeSalesStatistics.OffersSearcher.olx
 {
-    public class OlxOfferPriceParser
+    internal class OlxOfferPriceParser
     {
         private readonly IWebPageContentGetter _webPageContentGetter = new WebPageContentGetter();
-        private readonly string priceRegex = @"<strong class=""pricelabel__value not-arranged"">([0-9' ']*)zł</strong>";
+        private readonly string priceRegex = @"<strong class=""pricelabel__value [not-]*arranged"">([0-9' ']*)zł</strong>";
         public decimal GetOfferPrice(string linkToOffer)
         {
             var html = _webPageContentGetter.GetWebPageContent(linkToOffer);

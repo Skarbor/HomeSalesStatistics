@@ -1,12 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace HomeSalesStatistics.OffersSearcher
+﻿namespace HomeSalesStatistics.OffersSearcher
 {
-    public interface IWebPageContentGetter
+    internal interface IWebPageContentGetter
     {
         string GetWebPageContent(string url);
     }

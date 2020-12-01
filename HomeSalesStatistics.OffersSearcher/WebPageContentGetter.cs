@@ -4,7 +4,7 @@ using System.Net;
 
 namespace HomeSalesStatistics.OffersSearcher
 {
-    public class WebPageContentGetter : IWebPageContentGetter
+    internal class WebPageContentGetter : IWebPageContentGetter
     {
         public string GetWebPageContent(string url)
         {

@@ -6,6 +6,7 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\HomeSalesStatistics.DataAccess\HomeSalesStatistics.DataAccess.csproj" />
     <ProjectReference Include="..\HomeSalesStatistics.OffersSearcher\HomeSalesStatistics.OffersSearcher.csproj" />
   </ItemGroup>
 

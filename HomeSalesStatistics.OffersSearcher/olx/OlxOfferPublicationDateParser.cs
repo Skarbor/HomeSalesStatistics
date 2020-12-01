@@ -4,7 +4,7 @@ using System.Text.RegularExpressions;
 
 namespace HomeSalesStatistics.OffersSearcher.olx
 {
-    public class OlxOfferPublicationDateParser
+    internal class OlxOfferPublicationDateParser
     {
         private readonly IWebPageContentGetter _webPageContentGetter = new WebPageContentGetter();
         private readonly string publicationDateRegex = @"<strong>o ([0-9:]*), ([0-9]*) ([a-z]*) ([0-9]*)</strong>";

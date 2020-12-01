@@ -1,4 +1,5 @@
 ﻿using System;
+using HomeSalesStatistics.DataAccess.Repository;
 using HomeSalesStatistics.OffersSearcher;
 using HomeSalesStatistics.OffersSearcher.olx;
 
@@ -8,14 +9,12 @@ namespace HomeSalesStatistics.Runner
     {
         static void Main(string[] args)
         {
-            IWebPageContentGetter webPageContentGetter = new WebPageContentGetter();
+            ISearcher homeOffersSearcher = new Searcher();
 
-            OlxParser olx = new OlxParser();
+            var foundedHomeSalesOffers = homeOffersSearcher.SearchForOffers();
 
-            //var content = webPageContentGetter.GetWebPageContent(
-            //    "https://www.olx.pl/nieruchomosci/mieszkania/sprzedaz/lublin/?view=list");
-
-            //Console.WriteLine(content);
+            IHouseSellingOffersRepository repository = new HouseSellingOffersRepository();
+            repository.Bulk(foundedHomeSalesOffers);
 
             Console.ReadLine();
         }
